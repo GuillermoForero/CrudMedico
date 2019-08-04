@@ -2,4 +2,24 @@
     <string name="app_name">Crud Medico</string>
     <string name="doctors">Médicos</string>
     <string name="patients">Pacientes</string>
+    <string name="register">Registrar</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="hint_email">Email</string>
+    <string name="code">Código de tarjeta profesional</string>
+    <string name="hint_specialty">Especialidad</string>
+    <string name="hint_years_of_experience">Años de experiencia</string>
+    <string name="hint_consulting_room">Consultorio</string>
+    <string name="name">Nombre</string>
+    <string name="names">Nombres</string>
+    <string name="hint_lastnames">Apellidos</string>
+    <string name="id">Id</string>
+    <string name="is_in_treatment">¿Está en tratameiento?</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="modering_fee">Cuota moderadora</string>
+    <string name="birthday">Fecha de nacimiento</string>
+    <string name="date_and_time_new_appointment">Fecha y hora nueva cita</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,13 +1,15 @@
-package com.me.crudmedico;
+package com.me.crudmedico.ui.patient.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.me.crudmedico.R;
+
+public class CreatePatientActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_create_patient);
     }
 }
