@@ -13,7 +13,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.me.crudmedico.ui.patient.view.CreatePatientActivity;
+import com.me.crudmedico.ui.patient.contract.MainPatientContract;
 import com.me.crudmedico.R;
 
 import java.util.Calendar;
@@ -49,6 +49,7 @@ public class PatientActivity extends AppCompatActivity implements View.OnClickLi
     final int hora = c.get(Calendar.HOUR_OF_DAY);
     final int minuto = c.get(Calendar.MINUTE);
 
+    MainPatientContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

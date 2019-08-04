@@ -4,19 +4,15 @@ import com.me.crudmedico.model.Patient;
 
 import java.util.List;
 
-public class PatientContract {
+public class DetailPatientContract {
     public interface View {
-        public void setPatients(List<Patient> patients);
 
         void confirm(String message);
     }
 
     public interface Presenter {
-        public void getPatients();
 
-        public void createPatient(Patient patient);
-
-        void setView(View view);
+        void setView(MainPatientContract.View view);
 
         public void deletePatient(Patient patient);
 
