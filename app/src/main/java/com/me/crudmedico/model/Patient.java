@@ -1,8 +1,9 @@
 package com.me.crudmedico.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Patient {
+public class Patient implements Serializable {
     private String name;
     private String lastName;
     private Date birthdate;

@@ -23,4 +23,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="query_patients">Consultar pacientes atendidos</string>
+    <string name="is_in_home">Atiende a domicilio</string>
+    <string name="change_data">Cambiar datos</string>
+    <string name="create_new_appointment">Crear nueva cita médica</string>
 </resources>

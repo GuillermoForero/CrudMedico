@@ -82,13 +82,27 @@
             android:textStyle="normal" />
     </android.support.design.widget.TextInputLayout>
 
-    <Spinner
-        android:id="@+id/spinnner_is_home"
-        android:layout_width="300dp"
-        android:layout_height="60dp"></Spinner>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/is_in_home"/>
+    <CheckBox
+        android:id="@+id/checkBox_yes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/yes" />
+    <CheckBox
+        android:id="@+id/checkBox_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/no" />
 
     <Button
-        android:id="@+id/btn_sign_up"
+        android:id="@+id/watch_patients"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -97,6 +111,19 @@
         android:paddingStart="40dp"
         android:paddingEnd="40dp"
         android:text="@string/query_patients"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+    <Button
+        android:id="@+id/change_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:fontFamily="Roboto"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:text="@string/change_data"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:textStyle="bold" />

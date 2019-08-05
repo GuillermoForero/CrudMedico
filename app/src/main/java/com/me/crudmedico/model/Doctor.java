@@ -1,19 +1,14 @@
 package com.me.crudmedico.model;
 
-public class Doctor {
+import java.io.Serializable;
+
+public class Doctor implements Serializable {
     private String code;
     private String speciality;
     private Float yearsOfExperiences;
     private String consultingRoom;
     private Boolean home;
 
-    public Doctor(String code, String speciality, Float yearsOfExperiences, String consultingRoom, Boolean home) {
-        this.code = code;
-        this.speciality = speciality;
-        this.yearsOfExperiences = yearsOfExperiences;
-        this.consultingRoom = consultingRoom;
-        this.home = home;
-    }
 
     public String getCode() {
         return code;
