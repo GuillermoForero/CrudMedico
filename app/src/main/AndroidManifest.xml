@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.patient.view.CreatePatientActivity"></activity>
+        <activity android:name=".ui.patient.view.HistoryOfAppointmentsActivity"></activity>
+        <activity android:name=".ui.doctor.view.HistoryOfPatientsActivity" />
+        <activity android:name=".ui.doctor.view.DoctorDetailActivity" />
+        <activity android:name=".ui.patient.view.PatientDetailActivity" />
+        <activity android:name=".ui.patient.view.CreatePatientActivity" />
         <activity android:name=".ui.doctor.view.CreateDoctorActivity" />
         <activity android:name=".ui.doctor.view.DoctorActivity" />
         <activity android:name=".ui.patient.view.PatientActivity" />

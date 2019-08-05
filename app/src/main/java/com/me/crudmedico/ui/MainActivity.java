@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import com.me.crudmedico.R;
+import com.me.crudmedico.ui.doctor.view.DoctorActivity;
 import com.me.crudmedico.ui.patient.view.PatientActivity;
 
 import butterknife.BindView;
