@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.me.crudmedico.R;
 
-public class HistoryOfAppointmentsActivity extends AppCompatActivity {
+public class HistoryOfAppointmentsActivity extends AppCompatActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

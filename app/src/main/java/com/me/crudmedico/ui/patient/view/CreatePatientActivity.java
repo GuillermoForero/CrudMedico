@@ -34,12 +34,8 @@ public class CreatePatientActivity extends AppCompatActivity implements  View.On
     EditText nameEditText;
     @BindView(R.id.lastname_edit_text)
     EditText lastnameEditText;
-    @BindView(R.id.years_edit_text)
-    EditText yearsEditText;
     @BindView(R.id.id_edit_text)
     EditText idEditText;
-    @BindView(R.id.spinner_assigned_doctor)
-    Spinner spinnerAssignedDoctor;
     @BindView(R.id.checkBox_yes)
     CheckBox checkBoxYes;
     @BindView(R.id.checkBox_no)
@@ -166,5 +162,6 @@ public class CreatePatientActivity extends AppCompatActivity implements  View.On
         patient.setTreatment(checkBoxYes.isChecked());
         patient.setBirthdate(birthday);
     }
+
 
 }
