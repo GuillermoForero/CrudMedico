@@ -58,6 +58,7 @@ public class DetailPatientPresenter implements DetailPatientContract.Presenter {
     @Override
     public void createMedicalAppointment(MedicalAppointment medicalAppointment) {
         DataBase dataBase = new DataBase(context, "databaseMedicalCrud", null, 1);
+        System.out.println("fue creada: id: "+ medicalAppointment.getPatientId());
         SQLiteDatabase sqLiteDatabase = dataBase.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("codeDoctor", medicalAppointment.getDoctorCode());

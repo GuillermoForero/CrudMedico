@@ -7,6 +7,15 @@ public class MedicalAppointment {
     private String patientId;
     private Date date;
     private boolean attended;
+    private String imageFirmSVG;
+
+    public String getImageFirmSVG() {
+        return imageFirmSVG;
+    }
+
+    public void setImageFirmSVG(String imageFirmSVG) {
+        this.imageFirmSVG = imageFirmSVG;
+    }
 
     public String getDoctorCode() {
         return doctorCode;

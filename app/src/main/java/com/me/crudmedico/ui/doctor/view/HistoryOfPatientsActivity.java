@@ -1,5 +1,7 @@
 package com.me.crudmedico.ui.doctor.view;
 
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -54,6 +56,7 @@ public class HistoryOfPatientsActivity extends AppCompatActivity implements Watc
         adapterHistory.setMedicalAppointments(medicalAppointments);
         recyclerViewDoctor.setAdapter(adapterHistory);
     }
+
 
     @Override
     public void confirm(String message) {

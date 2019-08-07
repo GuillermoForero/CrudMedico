@@ -2,6 +2,7 @@ package com.me.crudmedico.ui.patient.view;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.CheckBox;
@@ -192,4 +193,7 @@ public class PatientDetailActivity extends AppCompatActivity implements  DialogF
     public void setDoctors(List<Doctor> doctors) {
         this.doctors = doctors;
     }
+
+
+
 }

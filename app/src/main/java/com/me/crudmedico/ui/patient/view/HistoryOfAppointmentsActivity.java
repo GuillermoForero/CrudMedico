@@ -1,6 +1,7 @@
 package com.me.crudmedico.ui.patient.view;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,6 +27,7 @@ public class HistoryOfAppointmentsActivity extends AppCompatActivity implements 
     private AdapterHistory adapterHistory;
     WatchHistoryPatientContract.Presenter presenter;
     String idPatient;
+    MedicalAppointment medicalAppointment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,12 @@ public class HistoryOfAppointmentsActivity extends AppCompatActivity implements 
         ButterKnife.bind(this);
         idPatient = getIntent().getStringExtra("patient");
         initView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.getMedicalAppointment(idPatient);
     }
 
     private void initView(){
@@ -54,13 +62,29 @@ public class HistoryOfAppointmentsActivity extends AppCompatActivity implements 
         adapterHistory.setLaunchFirmActivity(this);
     }
 
+    public void changeState(String imageSVG){
+        medicalAppointment.setImageFirmSVG(imageSVG);
+        presenter.setAttended(medicalAppointment);
+    }
+
     @Override
     public void confirm(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void launchFirmActivity() {
-        startActivity(new Intent(this, FirmActivity.class));
+    public void launchFirmActivity(MedicalAppointment medicalAppointment) {
+        startActivityForResult(new Intent(this, FirmActivity.class),666);
+        this.medicalAppointment = medicalAppointment;
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 666) {
+            if (resultCode == RESULT_OK) {
+                String returnedResult = data.getData().toString();
+                changeState(returnedResult);
+            }
+        }
     }
 }

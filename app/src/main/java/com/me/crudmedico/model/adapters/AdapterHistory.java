@@ -59,7 +59,7 @@ public class AdapterHistory extends RecyclerView.Adapter<AdapterHistory.ViewHold
         holder.containerItemHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchFirmActivity.launchFirmActivity();
+                launchFirmActivity.launchFirmActivity(medicalAppointments.get(position));
             }
         });
     }
@@ -88,7 +88,7 @@ public class AdapterHistory extends RecyclerView.Adapter<AdapterHistory.ViewHold
 
     }
     public interface LaunchFirmActivity{
-        public void launchFirmActivity();
+        public void launchFirmActivity(MedicalAppointment medicalAppointment);
     }
 
 }
