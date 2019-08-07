@@ -18,8 +18,10 @@ import android.widget.Toast;
 import com.me.crudmedico.model.Patient;
 import com.me.crudmedico.model.adapters.AdapterTextNamePatient;
 import com.me.crudmedico.model.adapters.AdaptertextNameDoctors;
+import com.me.crudmedico.ui.doctor.presenter.MainDoctorPresenter;
 import com.me.crudmedico.ui.patient.contract.MainPatientContract;
 import com.me.crudmedico.R;
+import com.me.crudmedico.ui.patient.presenter.MainPatientPresenter;
 
 import java.util.Calendar;
 import java.util.List;
@@ -28,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class PatientActivity extends AppCompatActivity implements  MainPatientContract.View {
+public class PatientActivity extends AppCompatActivity implements  MainPatientContract.View, AdapterTextNamePatient.launchActivityDetailPatient {
 
     @BindView(R.id.toolbar_activity_patient)
     Toolbar toolbarPatient;
@@ -45,13 +47,21 @@ public class PatientActivity extends AppCompatActivity implements  MainPatientCo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient);
         ButterKnife.bind(this);
-        toolbarPatient.setTitle(R.string.doctors);
-        setSupportActionBar(toolbarPatient);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        initView();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.getPatients();
+    }
 
+    private void initView(){
+        presenter = new MainPatientPresenter();
+        presenter.setView(this);
+        presenter.setContext(this);
+        presenter.getPatients();
+    }
 
 
     @OnClick(R.id.fab_activity_patient)
@@ -66,10 +76,16 @@ public class PatientActivity extends AppCompatActivity implements  MainPatientCo
         recyclerViewPatient.setLayoutManager(linearLayoutManager);
         adapterTextNamePatient = new AdapterTextNamePatient(patients);
         recyclerViewPatient.setAdapter(adapterTextNamePatient);
+        adapterTextNamePatient.setLaunchActivityDetailPatient(this);
     }
 
     @Override
     public void confirm(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void launchACtivityDetailPatient(Patient patient) {
+        startActivity(new Intent(this, PatientDetailActivity.class).putExtra("patient", patient));
     }
 }

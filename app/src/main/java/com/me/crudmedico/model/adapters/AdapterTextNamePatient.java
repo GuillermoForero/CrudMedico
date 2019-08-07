@@ -16,6 +16,15 @@ import butterknife.ButterKnife;
 
 public class AdapterTextNamePatient extends RecyclerView.Adapter<AdaptertextNameDoctors.ViewHolderNames> {
         private List<Patient> patients;
+        private launchActivityDetailPatient launchActivityDetailPatient;
+
+    public AdapterTextNamePatient.launchActivityDetailPatient getLaunchActivityDetailPatient() {
+        return launchActivityDetailPatient;
+    }
+
+    public void setLaunchActivityDetailPatient(AdapterTextNamePatient.launchActivityDetailPatient launchActivityDetailPatient) {
+        this.launchActivityDetailPatient = launchActivityDetailPatient;
+    }
 
     public AdapterTextNamePatient(List<Patient> patients) {
         this.patients = patients;
@@ -33,8 +42,14 @@ public class AdapterTextNamePatient extends RecyclerView.Adapter<AdaptertextName
 
         // Replace the contents of a view (invoked by the layout manager)
         @Override
-        public void onBindViewHolder(final AdaptertextNameDoctors.ViewHolderNames holder, int position) {
+        public void onBindViewHolder(final AdaptertextNameDoctors.ViewHolderNames holder, final int position) {
             holder.textViewName.setText(patients.get(position).getId());
+            holder.textViewName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    launchActivityDetailPatient.launchACtivityDetailPatient(patients.get(position));
+                }
+            });
         }
 
         @Override
@@ -56,5 +71,7 @@ public class AdapterTextNamePatient extends RecyclerView.Adapter<AdaptertextName
             }
 
         }
+    public interface launchActivityDetailPatient{
+        public void launchACtivityDetailPatient(Patient patient);
     }
-
+    }

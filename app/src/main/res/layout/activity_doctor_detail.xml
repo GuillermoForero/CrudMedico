@@ -119,11 +119,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="20dp"
         android:fontFamily="Roboto"
-        android:paddingStart="40dp"
-        android:paddingEnd="40dp"
+
         android:text="@string/change_data"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="Roboto"
+        android:text="@string/delete_doctor"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:textStyle="bold" />

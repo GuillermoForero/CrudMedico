@@ -8,15 +8,21 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.me.crudmedico.R;
+import com.me.crudmedico.model.Doctor;
+import com.me.crudmedico.model.MedicalAppointment;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +39,7 @@ public class DialogFragmentMedicalAppointment extends DialogFragment {
     Spinner spinnerDoctors;
 
 
+    List<Doctor> doctors;
     private static final String CERO = "0";
     private static final String BARRA = "/";
     private static final String DOS_PUNTOS = ":";
@@ -44,12 +51,18 @@ public class DialogFragmentMedicalAppointment extends DialogFragment {
     final int hora = c.get(Calendar.HOUR_OF_DAY);
     final int minuto = c.get(Calendar.MINUTE);
     Date newAppointment;
+    createMedicalAppointment createMedicalAppointment;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.dialog_create_medical_appointment, container, false);
-        context = getActivity().getBaseContext();
         ButterKnife.bind(this, v);
+        createMedicalAppointment.isReady();
+        newAppointment = new Date();
         return v;
+    }
+
+    public void setCreateMedicalAppointment(DialogFragmentMedicalAppointment.createMedicalAppointment createMedicalAppointment) {
+        this.createMedicalAppointment = createMedicalAppointment;
     }
 
     @OnClick(R.id.date_of_new_appoinment)
@@ -61,6 +74,9 @@ public class DialogFragmentMedicalAppointment extends DialogFragment {
         getTime();
     }
 
+    public void setContext(Context context) {
+        this.context = context;
+    }
 
     private void getDate(){
         DatePickerDialog recogerFecha = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
@@ -92,6 +108,18 @@ public class DialogFragmentMedicalAppointment extends DialogFragment {
         //Muestro el widget
         recogerFecha.show();
 
+    }
+    public void setDoctors(List<Doctor> doctors){
+        List<String> stringsDoctors = new ArrayList<>();
+        for(Doctor doctor: doctors){
+            stringsDoctors.add(doctor.getCode());
+        }
+        System.out.println("context: "+ context);
+        this.doctors = doctors;
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context,
+                android.R.layout.simple_spinner_item, stringsDoctors);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerDoctors.setAdapter(dataAdapter);
     }
 
     private void getTime(){
@@ -126,8 +154,19 @@ public class DialogFragmentMedicalAppointment extends DialogFragment {
         recogerHora.show();
     }
 
+    @OnClick(R.id.btn_new_medical_appointment)
+    public void createMedicalAppointment(){
+        MedicalAppointment medicalAppointment = new MedicalAppointment();
+        medicalAppointment.setDate(newAppointment);
+        medicalAppointment.setDoctorCode(doctors.get(spinnerDoctors.getSelectedItemPosition()).getCode());
+        createMedicalAppointment.createMedicalAppointment(medicalAppointment);
+        getDialog().dismiss();
+    }
+
     public interface createMedicalAppointment{
-        public void createMedicalAppointment();
+        public void createMedicalAppointment(MedicalAppointment medicalAppointment);
+
+        public void isReady();
     }
 
 }

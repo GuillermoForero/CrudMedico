@@ -1,6 +1,7 @@
 package com.me.crudmedico.ui.patient.view;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.CheckBox;
@@ -8,21 +9,28 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.me.crudmedico.R;
+import com.me.crudmedico.model.Doctor;
+import com.me.crudmedico.model.MedicalAppointment;
 import com.me.crudmedico.model.Patient;
+import com.me.crudmedico.ui.patient.contract.DetailPatientContract;
+import com.me.crudmedico.ui.patient.presenter.CreatePatientPresenter;
+import com.me.crudmedico.ui.patient.presenter.DetailPatientPresenter;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class PatientDetailActivity extends AppCompatActivity {
+public class PatientDetailActivity extends AppCompatActivity implements  DialogFragmentMedicalAppointment.createMedicalAppointment, DetailPatientContract.View {
 
 
-    @BindView(R.id.birthday_textview)
+    @BindView(R.id.birthday_textview_detail)
     TextView textViewBirthDay;
     @BindView(R.id.name_edit_text)
     EditText nameEditText;
@@ -48,14 +56,41 @@ public class PatientDetailActivity extends AppCompatActivity {
     final int hora = c.get(Calendar.HOUR_OF_DAY);
     final int minuto = c.get(Calendar.MINUTE);
 
+    Patient patient;
     Date birthday;
     Date newAppointment;
+    DialogFragmentMedicalAppointment dialog;
+    private List<Doctor> doctors;
+    DetailPatientContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_detail);
         ButterKnife.bind(this);
+        patient = (Patient) getIntent().getSerializableExtra("patient");
+
+        initView();
+    }
+
+    public void initView(){
+        idEditText.setText(patient.getId());
+        nameEditText.setText(patient.getName());
+        lastnameEditText.setText(patient.getLastName());
+        textViewBirthDay.setText(patient.getBirthdate().toString());
+        moderingFeeEditText.setText(patient.getValue().toString());
+        birthday = patient.getBirthdate();
+        if(patient.getTreatment()){
+            checkBoxYes.setChecked(true);
+        }
+        else{
+            checkBoxNo.setChecked(true);
+        }
+
+        presenter = new DetailPatientPresenter();
+        presenter.setView(this);
+        presenter.setContext(this);
+        presenter.getDoctors();
     }
 
 
@@ -68,13 +103,33 @@ public class PatientDetailActivity extends AppCompatActivity {
         patient.setTreatment(checkBoxYes.isChecked());
         patient.setBirthdate(birthday);
         patient.setValue(Double.parseDouble(moderingFeeEditText.getText().toString()));
+        presenter.editPatient(patient);
     }
 
     @OnClick(R.id.btn_launch_new_medical_appointment)
     public void newMedicalAppointment(){
-        final DialogFragmentMedicalAppointment dialog = new DialogFragmentMedicalAppointment();
+        dialog = new DialogFragmentMedicalAppointment();
         dialog.setCancelable(false);
         dialog.show(getSupportFragmentManager(), "lel");
+        dialog.setContext(this);
+        dialog.setCreateMedicalAppointment(this);
+    }
+
+    @OnClick(R.id.watch_medical_appointments)
+    public void watchMedicalAppointments(){
+        startActivity(new Intent(this, HistoryOfAppointmentsActivity.class).putExtra("patient", patient.getId()));
+    }
+
+    @OnClick(R.id.btn_delete)
+    public void deletePatient(){
+        Patient patient = new Patient();
+        patient.setName(nameEditText.getText().toString());
+        patient.setLastName(lastnameEditText.getText().toString());
+        patient.setId(idEditText.getText().toString());
+        patient.setTreatment(checkBoxYes.isChecked());
+        patient.setBirthdate(birthday);
+        patient.setValue(Double.parseDouble(moderingFeeEditText.getText().toString()));
+        presenter.deletePatient(patient);
     }
 
     private void getDate(final TextView textView, final int type){
@@ -117,4 +172,24 @@ public class PatientDetailActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void createMedicalAppointment(MedicalAppointment medicalAppointment) {
+        medicalAppointment.setPatientId(patient.getId());
+        presenter.createMedicalAppointment(medicalAppointment);
+    }
+
+    @Override
+    public void isReady() {
+        dialog.setDoctors(doctors);
+    }
+
+    @Override
+    public void confirm(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void setDoctors(List<Doctor> doctors) {
+        this.doctors = doctors;
+    }
 }

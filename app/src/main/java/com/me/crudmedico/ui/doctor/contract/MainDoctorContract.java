@@ -1,7 +1,8 @@
 package com.me.crudmedico.ui.doctor.contract;
 
+import android.content.Context;
+
 import com.me.crudmedico.model.Doctor;
-import com.me.crudmedico.model.Patient;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ public class MainDoctorContract {
 
     public interface Presenter {
         public void getDoctor();
+
+        void setContext(Context context);
 
         void setView(MainDoctorContract.View view);
     }

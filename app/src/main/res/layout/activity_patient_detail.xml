@@ -45,7 +45,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <TextView
-        android:id="@+id/birthday_textview"
+        android:id="@+id/birthday_textview_detail"
         android:textSize="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -116,10 +116,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="20dp"
+
         android:fontFamily="Roboto"
-        android:paddingStart="40dp"
-        android:paddingEnd="40dp"
         android:text="@string/change_data"
         android:textColor="@android:color/black"
         android:textSize="20sp"
@@ -130,11 +128,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="20dp"
         android:fontFamily="Roboto"
-        android:paddingStart="40dp"
-        android:paddingEnd="40dp"
         android:text="@string/create_new_appointment"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+    <Button
+        android:id="@+id/btn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="Roboto"
+        android:text="@string/delete_patient"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+    <Button
+        android:id="@+id/watch_medical_appointments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="Roboto"
+        android:text="@string/watch_medical_appointments"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:textStyle="bold" />

@@ -16,6 +16,7 @@ import com.me.crudmedico.model.Doctor;
 import com.me.crudmedico.model.Patient;
 import com.me.crudmedico.model.adapters.AdaptertextNameDoctors;
 import com.me.crudmedico.ui.doctor.contract.MainDoctorContract;
+import com.me.crudmedico.ui.doctor.presenter.MainDoctorPresenter;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class DoctorActivity extends AppCompatActivity implements MainDoctorContract.View {
+public class DoctorActivity extends AppCompatActivity implements MainDoctorContract.View, AdaptertextNameDoctors.launchACtivityDetailDoctor {
 
     @BindView(R.id.toolbar_activity_doctor)
     Toolbar toolbarPatient;
@@ -33,7 +34,7 @@ public class DoctorActivity extends AppCompatActivity implements MainDoctorContr
     @BindView(R.id.recyclerView_activity_doctor)
     RecyclerView recyclerViewDoctor;
 
-
+    MainDoctorContract.Presenter presenter;
     AdaptertextNameDoctors adaptertextNameDoctors;
 
     @Override
@@ -41,10 +42,20 @@ public class DoctorActivity extends AppCompatActivity implements MainDoctorContr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor);
         ButterKnife.bind(this);
-        toolbarPatient.setTitle(R.string.doctors);
-        setSupportActionBar(toolbarPatient);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        initView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.getDoctor();
+    }
+
+    private void initView(){
+        presenter = new MainDoctorPresenter();
+        presenter.setView(this);
+        presenter.setContext(this);
+        presenter.getDoctor();
     }
 
     @OnClick(R.id.fab_activity_doctor)
@@ -58,10 +69,17 @@ public class DoctorActivity extends AppCompatActivity implements MainDoctorContr
         recyclerViewDoctor.setLayoutManager(linearLayoutManager);
         adaptertextNameDoctors = new AdaptertextNameDoctors(doctors);
         recyclerViewDoctor.setAdapter(adaptertextNameDoctors);
+        System.out.println("leeel");
+        adaptertextNameDoctors.setLaunchACtivityDetailDoctor(this);
     }
 
     @Override
     public void confirm(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void launchACtivityDetailDoctor(Doctor doctor) {
+        startActivity(new Intent(this, DoctorDetailActivity.class).putExtra("doctor", doctor));
     }
 }

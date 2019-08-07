@@ -44,6 +44,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/doctors"
+            android:textStyle="bold"/>
         <Spinner
             android:id="@+id/doctors_spinner"
             android:layout_width="wrap_content"

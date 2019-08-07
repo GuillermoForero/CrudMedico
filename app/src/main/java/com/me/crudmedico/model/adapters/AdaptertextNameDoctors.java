@@ -1,5 +1,6 @@
 package com.me.crudmedico.model.adapters;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import com.me.crudmedico.R;
 import com.me.crudmedico.model.Doctor;
+import com.me.crudmedico.ui.doctor.view.CreateDoctorActivity;
 
 import java.util.List;
 
@@ -17,6 +19,15 @@ import butterknife.ButterKnife;
 public class AdaptertextNameDoctors extends RecyclerView.Adapter<AdaptertextNameDoctors.ViewHolderNames> {
     private List<Doctor> doctors;
 
+    public AdaptertextNameDoctors.launchACtivityDetailDoctor getLaunchACtivityDetailDoctor() {
+        return launchACtivityDetailDoctor;
+    }
+
+    public void setLaunchACtivityDetailDoctor(AdaptertextNameDoctors.launchACtivityDetailDoctor launchACtivityDetailDoctor) {
+        this.launchACtivityDetailDoctor = launchACtivityDetailDoctor;
+    }
+
+    private launchACtivityDetailDoctor launchACtivityDetailDoctor;
     public AdaptertextNameDoctors(List<Doctor> doctors) {
         this.doctors = doctors;
     }
@@ -33,8 +44,14 @@ public class AdaptertextNameDoctors extends RecyclerView.Adapter<AdaptertextName
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(final ViewHolderNames holder, int position) {
+    public void onBindViewHolder(final ViewHolderNames holder, final int position) {
         holder.textViewName.setText(doctors.get(position).getCode());
+        holder.textViewName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                 launchACtivityDetailDoctor.launchACtivityDetailDoctor(doctors.get(position));
+            }
+        });
     }
 
     @Override
@@ -55,5 +72,9 @@ public class AdaptertextNameDoctors extends RecyclerView.Adapter<AdaptertextName
             ButterKnife.bind(this, view);
         }
 
+    }
+
+    public interface launchACtivityDetailDoctor{
+        public void launchACtivityDetailDoctor(Doctor doctor);
     }
 }

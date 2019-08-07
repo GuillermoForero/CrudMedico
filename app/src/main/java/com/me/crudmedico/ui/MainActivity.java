@@ -29,12 +29,12 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick(R.id.button)
+    @OnClick(R.id.button2)
     public void goToDoctors(){
         startActivity(new Intent(this, DoctorActivity.class));
     }
 
-    @OnClick(R.id.button2)
+    @OnClick(R.id.button)
     public void goToPatients(){
         startActivity(new Intent(this, PatientActivity.class));
     }

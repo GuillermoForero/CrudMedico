@@ -26,4 +26,10 @@
     <string name="is_in_home">Atiende a domicilio</string>
     <string name="change_data">Cambiar datos</string>
     <string name="create_new_appointment">Crear nueva cita médica</string>
+    <string name="delete_doctor">Borrar doctor</string>
+    <string name="delete_patient">Borrar paciente</string>
+    <string name="watch_medical_appointments">Ver citas médicas</string>
+    <string name="date_of_appointmen">Fecha de cita médica</string>
+    <string name="attended">Asistió:</string>
+    <string name="attended_state">Sí</string>
 </resources>

@@ -66,15 +66,10 @@
             android:layout_height="wrap_content"
             android:fontFamily="Roboto"
             android:hint="@string/id"
-            android:inputType="numberDecimal"
+            android:inputType="text"
             android:textSize="20sp"
             android:textStyle="normal" />
     </android.support.design.widget.TextInputLayout>
-
-    <Spinner
-        android:id="@+id/spinner_assigned_doctor"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"></Spinner>
 
 
     <TextView
@@ -114,30 +109,6 @@
             android:textSize="20sp"
             android:textStyle="normal" />
     </android.support.design.widget.TextInputLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:text="@string/date_and_time_new_appointment"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/date_of_new_appoinment"
-            android:text="date_of_new_appoinment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_marginHorizontal="20dp"
-            android:id="@+id/time_of_new_appoinment"
-            android:text="time_of_new_appoinment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-
     <Button
         android:id="@+id/btn_sign_up"
         android:layout_width="wrap_content"

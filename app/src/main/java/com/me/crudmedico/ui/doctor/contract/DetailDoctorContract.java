@@ -1,5 +1,7 @@
 package com.me.crudmedico.ui.doctor.contract;
 
+import android.content.Context;
+
 import com.me.crudmedico.model.Doctor;
 
 public class DetailDoctorContract {
@@ -10,9 +12,11 @@ public class DetailDoctorContract {
 
     public interface Presenter {
 
-        void setView(MainDoctorContract.View view);
+        void setView(DetailDoctorContract.View view);
 
-        public void deletePatient(Doctor doctor);
+        public void deleteDoctor(Doctor doctor);
+
+        void setContext(Context context);
 
         public void editDoctor(Doctor doctor);
     }
