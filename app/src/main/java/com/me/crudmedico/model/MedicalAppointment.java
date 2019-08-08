@@ -1,12 +1,25 @@
 package com.me.crudmedico.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 public class MedicalAppointment {
+    @SerializedName("doctorCode")
+    @Expose
     private String doctorCode;
+    @SerializedName("patientId")
+    @Expose
     private String patientId;
+    @SerializedName("date")
+    @Expose
     private Date date;
+    @SerializedName("attended")
+    @Expose
     private boolean attended;
+    @SerializedName("imageFirmSVG")
+    @Expose
     private String imageFirmSVG;
 
     public String getImageFirmSVG() {
@@ -47,5 +60,16 @@ public class MedicalAppointment {
 
     public void setAttended(boolean attended) {
         this.attended = attended;
+    }
+
+    @Override
+    public String toString() {
+        return "MedicalAppointment{" +
+                "doctorCode='" + doctorCode + '\'' +
+                ", patientId='" + patientId + '\'' +
+                ", date=" + date +
+                ", attended=" + attended +
+                ", imageFirmSVG='" + imageFirmSVG + '\'' +
+                '}';
     }
 }

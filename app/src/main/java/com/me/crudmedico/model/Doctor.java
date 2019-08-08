@@ -1,12 +1,25 @@
 package com.me.crudmedico.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class Doctor implements Serializable {
+    @SerializedName("code")
+    @Expose
     private String code;
+    @SerializedName("speciality")
+    @Expose
     private String speciality;
+    @SerializedName("yearsOfExperiences")
+    @Expose
     private Float yearsOfExperiences;
+    @SerializedName("consultingRoom")
+    @Expose
     private String consultingRoom;
+    @SerializedName("home")
+    @Expose
     private Boolean home;
 
 
@@ -48,5 +61,16 @@ public class Doctor implements Serializable {
 
     public void setHome(Boolean home) {
         this.home = home;
+    }
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "code='" + code + '\'' +
+                ", speciality='" + speciality + '\'' +
+                ", yearsOfExperiences=" + yearsOfExperiences +
+                ", consultingRoom='" + consultingRoom + '\'' +
+                ", home=" + home +
+                '}';
     }
 }

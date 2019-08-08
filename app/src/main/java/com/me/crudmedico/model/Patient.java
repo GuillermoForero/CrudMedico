@@ -1,16 +1,35 @@
 package com.me.crudmedico.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class Patient implements Serializable {
+    @SerializedName("name")
+    @Expose
     private String name;
+    @SerializedName("lastName")
+    @Expose
     private String lastName;
+    @SerializedName("birthdate")
+    @Expose
     private Date birthdate;
+    @SerializedName("id")
+    @Expose
     private String id;
+    @SerializedName("doctor")
+    @Expose
     private Doctor doctor;
+    @SerializedName("treatment")
+    @Expose
     private Boolean treatment;
+    @SerializedName("value")
+    @Expose
     private Double value;
+    @SerializedName("otherDate")
+    @Expose
     private Date otherDate;
 
     public String getName() {
@@ -75,5 +94,19 @@ public class Patient implements Serializable {
 
     public void setOtherDate(Date otherDate) {
         this.otherDate = otherDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthdate=" + birthdate +
+                ", id='" + id + '\'' +
+                ", doctor=" + doctor +
+                ", treatment=" + treatment +
+                ", value=" + value +
+                ", otherDate=" + otherDate +
+                '}';
     }
 }
