@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.me.crudmedico.data.DataBase;
 import com.me.crudmedico.model.Patient;
-import com.me.crudmedico.ui.doctor.contract.MainDoctorContract;
 import com.me.crudmedico.ui.patient.contract.CreatePatientContract;
 
 import java.lang.ref.WeakReference;

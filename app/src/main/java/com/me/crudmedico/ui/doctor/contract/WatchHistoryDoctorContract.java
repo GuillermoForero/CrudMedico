@@ -2,7 +2,6 @@ package com.me.crudmedico.ui.doctor.contract;
 
 import android.content.Context;
 
-import com.me.crudmedico.model.Doctor;
 import com.me.crudmedico.model.MedicalAppointment;
 
 import java.util.List;

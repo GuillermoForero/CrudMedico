@@ -1,7 +1,5 @@
 package com.me.crudmedico.ui.doctor.view;
 
-import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,13 +8,10 @@ import android.widget.Toast;
 
 import com.me.crudmedico.R;
 import com.me.crudmedico.model.MedicalAppointment;
-import com.me.crudmedico.model.Patient;
 import com.me.crudmedico.model.adapters.AdapterHistory;
-import com.me.crudmedico.model.adapters.AdaptertextNameDoctors;
 import com.me.crudmedico.ui.doctor.contract.WatchHistoryDoctorContract;
 import com.me.crudmedico.ui.doctor.presenter.WatchHistoryDoctorPresenter;
-import com.me.crudmedico.ui.patient.contract.MainPatientContract;
-import com.me.crudmedico.ui.patient.presenter.WatchHistoryPatientPresenter;
+
 
 import java.util.List;
 

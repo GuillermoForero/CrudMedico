@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.me.crudmedico.model.Doctor;
 
-import java.util.List;
 
 public class CreateDoctorContract {
     public interface View {

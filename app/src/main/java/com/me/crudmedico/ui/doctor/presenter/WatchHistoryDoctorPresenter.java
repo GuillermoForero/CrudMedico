@@ -6,9 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.me.crudmedico.data.DataBase;
 import com.me.crudmedico.model.MedicalAppointment;
-import com.me.crudmedico.ui.doctor.contract.MainDoctorContract;
 import com.me.crudmedico.ui.doctor.contract.WatchHistoryDoctorContract;
-import com.me.crudmedico.ui.patient.contract.WatchHistoryPatientContract;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

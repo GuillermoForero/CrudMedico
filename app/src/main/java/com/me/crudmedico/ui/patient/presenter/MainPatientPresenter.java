@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.me.crudmedico.data.DataBase;
-import com.me.crudmedico.model.Doctor;
 import com.me.crudmedico.model.Patient;
 import com.me.crudmedico.ui.patient.contract.MainPatientContract;
 
