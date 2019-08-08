@@ -32,4 +32,5 @@
     <string name="date_of_appointmen">Fecha de cita médica</string>
     <string name="attended">Asistió:</string>
     <string name="attended_state">Sí</string>
+    <string name="delete_history">Borrar historial de citas</string>
 </resources>

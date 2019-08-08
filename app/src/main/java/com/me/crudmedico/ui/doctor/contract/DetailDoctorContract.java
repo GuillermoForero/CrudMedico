@@ -19,5 +19,7 @@ public class DetailDoctorContract {
         void setContext(Context context);
 
         public void editDoctor(Doctor doctor);
+
+        public void deleteHistory(Doctor doctor);
     }
 }

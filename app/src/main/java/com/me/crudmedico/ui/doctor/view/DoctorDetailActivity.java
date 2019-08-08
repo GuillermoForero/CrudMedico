@@ -81,6 +81,10 @@ public class DoctorDetailActivity extends AppCompatActivity implements DetailDoc
         doctor.setHome(checkBoxYes.isChecked());
         presenter.deleteDoctor(doctor);
     }
+    @OnClick(R.id.btn_delete_history)
+    public void deleteHistory(){
+        presenter.deleteHistory(doctor);
+    }
 
     @Override
     public void confirm(String message) {
