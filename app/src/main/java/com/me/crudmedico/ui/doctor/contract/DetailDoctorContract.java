@@ -14,12 +14,12 @@ public class DetailDoctorContract {
 
         void setView(DetailDoctorContract.View view);
 
-        public void deleteDoctor(Doctor doctor);
+        void deleteDoctor(Doctor doctor);
 
         void setContext(Context context);
 
-        public void editDoctor(Doctor doctor);
+        void editDoctor(Doctor doctor);
 
-        public void deleteHistory(Doctor doctor);
+        void deleteHistory(Doctor doctor);
     }
 }

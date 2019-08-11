@@ -1,7 +1,7 @@
 package com.me.crudmedico.ui.doctor.view;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
@@ -12,13 +12,12 @@ import com.me.crudmedico.model.adapters.AdapterHistory;
 import com.me.crudmedico.ui.doctor.contract.WatchHistoryDoctorContract;
 import com.me.crudmedico.ui.doctor.presenter.WatchHistoryDoctorPresenter;
 
-
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HistoryOfPatientsActivity extends AppCompatActivity implements WatchHistoryDoctorContract.View{
+public class HistoryOfPatientsActivity extends AppCompatActivity implements WatchHistoryDoctorContract.View {
 
     @BindView(R.id.recyclerView_history_doctor)
     RecyclerView recyclerViewDoctor;
@@ -36,7 +35,7 @@ public class HistoryOfPatientsActivity extends AppCompatActivity implements Watc
         initView();
     }
 
-    private void initView(){
+    private void initView() {
         presenter = new WatchHistoryDoctorPresenter();
         presenter.setView(this);
         presenter.setContext(this);

@@ -1,10 +1,11 @@
 package com.me.crudmedico.ui.doctor.view;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.me.crudmedico.R;
@@ -16,10 +17,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DoctorDetailActivity extends AppCompatActivity implements DetailDoctorContract.View{
+import static com.me.crudmedico.utils.Util.edittextNotEmpty;
+import static com.me.crudmedico.utils.Util.textviewNotEmpty;
+
+public class DoctorDetailActivity extends AppCompatActivity implements DetailDoctorContract.View {
 
     @BindView(R.id.code)
-    EditText codeEditText;
+    TextView codeTextView;
     @BindView(R.id.especialty)
     EditText especialtyEditText;
     @BindView(R.id.years)
@@ -33,6 +37,7 @@ public class DoctorDetailActivity extends AppCompatActivity implements DetailDoc
 
     DetailDoctorContract.Presenter presenter;
     Doctor doctor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +46,9 @@ public class DoctorDetailActivity extends AppCompatActivity implements DetailDoc
         this.doctor = (Doctor) getIntent().getSerializableExtra("doctor");
         initView();
     }
-    public void initView(){
-        codeEditText.setText(doctor.getCode());
+
+    public void initView() {
+        codeTextView.setText(doctor.getCode());
         especialtyEditText.setText(doctor.getSpeciality());
         consultingRoomEditText.setText(doctor.getConsultingRoom());
         yearsEditText.setText(String.valueOf(doctor.getYearsOfExperiences()));
@@ -57,32 +63,38 @@ public class DoctorDetailActivity extends AppCompatActivity implements DetailDoc
     }
 
     @OnClick(R.id.change_data)
-    public void changeData(){
+    public void changeData() {
         Doctor doctor = new Doctor();
-        doctor.setCode(codeEditText.getText().toString());
-        doctor.setSpeciality(especialtyEditText.getText().toString());
-        doctor.setConsultingRoom(consultingRoomEditText.getText().toString());
-        doctor.setYearsOfExperiences(Float.valueOf(yearsEditText.getText().toString()));
-        doctor.setHome(checkBoxYes.isChecked());
-        presenter.editDoctor(doctor);
+        if (textviewNotEmpty(codeTextView) && edittextNotEmpty(especialtyEditText) && edittextNotEmpty(consultingRoomEditText) && edittextNotEmpty(yearsEditText)) {
+            doctor.setCode(codeTextView.getText().toString());
+            doctor.setSpeciality(especialtyEditText.getText().toString());
+            doctor.setConsultingRoom(consultingRoomEditText.getText().toString());
+            doctor.setYearsOfExperiences(Float.valueOf(yearsEditText.getText().toString()));
+            doctor.setHome(checkBoxYes.isChecked());
+            presenter.editDoctor(doctor);
+        } else {
+            confirm("Todos los campos deben estar llenos");
+        }
     }
 
     @OnClick(R.id.watch_patients)
-    public void watchPatients(){
+    public void watchPatients() {
         startActivity(new Intent(this, HistoryOfPatientsActivity.class).putExtra("doctor", doctor.getCode()));
     }
+
     @OnClick(R.id.btn_delete)
-    public void deleteDoctor(){
+    public void deleteDoctor() {
         Doctor doctor = new Doctor();
-        doctor.setCode(codeEditText.getText().toString());
+        doctor.setCode(codeTextView.getText().toString());
         doctor.setSpeciality(especialtyEditText.getText().toString());
         doctor.setConsultingRoom(consultingRoomEditText.getText().toString());
         doctor.setYearsOfExperiences(Float.valueOf(yearsEditText.getText().toString()));
         doctor.setHome(checkBoxYes.isChecked());
         presenter.deleteDoctor(doctor);
     }
+
     @OnClick(R.id.btn_delete_history)
-    public void deleteHistory(){
+    public void deleteHistory() {
         presenter.deleteHistory(doctor);
     }
 

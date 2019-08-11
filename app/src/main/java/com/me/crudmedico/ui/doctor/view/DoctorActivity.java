@@ -1,19 +1,16 @@
 package com.me.crudmedico.ui.doctor.view;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.me.crudmedico.R;
 import com.me.crudmedico.model.Doctor;
-import com.me.crudmedico.model.Patient;
 import com.me.crudmedico.model.adapters.AdaptertextNameDoctors;
 import com.me.crudmedico.ui.doctor.contract.MainDoctorContract;
 import com.me.crudmedico.ui.doctor.presenter.MainDoctorPresenter;
@@ -51,7 +48,7 @@ public class DoctorActivity extends AppCompatActivity implements MainDoctorContr
         presenter.getDoctor();
     }
 
-    private void initView(){
+    private void initView() {
         presenter = new MainDoctorPresenter();
         presenter.setView(this);
         presenter.setContext(this);
@@ -59,7 +56,7 @@ public class DoctorActivity extends AppCompatActivity implements MainDoctorContr
     }
 
     @OnClick(R.id.fab_activity_doctor)
-    public void createDoctor(){
+    public void createDoctor() {
         startActivity(new Intent(this, CreateDoctorActivity.class));
     }
 

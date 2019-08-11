@@ -22,12 +22,12 @@ public class DetailPatientContract {
 
         void setView(DetailPatientContract.View view);
 
-        public void deletePatient(Patient patient);
+        void deletePatient(Patient patient);
 
-        public void editPatient(Patient patient);
+        void editPatient(Patient patient);
 
-        public void createMedicalAppointment(MedicalAppointment medicalAppointment);
+        void createMedicalAppointment(MedicalAppointment medicalAppointment);
 
-        public void getDoctors();
+        void getDoctors();
     }
 }

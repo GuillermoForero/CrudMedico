@@ -40,7 +40,7 @@ public class MainPatientPresenter implements MainPatientContract.Presenter {
                 patient.setTreatment(Boolean.valueOf(cursor.getString(4)));
                 patient.setValue(cursor.getDouble(5));
                 patients.add(patient);
-            } while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         view.get().setPatients(patients);
         sqLiteDatabase.close();

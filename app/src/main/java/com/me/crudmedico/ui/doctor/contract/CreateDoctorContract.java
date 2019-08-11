@@ -11,12 +11,12 @@ public class CreateDoctorContract {
     }
 
     public interface Presenter {
-        public void getDoctor();
+        void getDoctor();
 
         void setView(CreateDoctorContract.View view);
 
         void setContext(Context context);
 
-        public void createDoctor(Doctor doctor);
+        void createDoctor(Doctor doctor);
     }
 }

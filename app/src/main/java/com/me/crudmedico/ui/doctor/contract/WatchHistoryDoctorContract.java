@@ -8,13 +8,13 @@ import java.util.List;
 
 public class WatchHistoryDoctorContract {
     public interface View {
-        public void setMedicalAppointment(List<MedicalAppointment> medicalAppointments);
+        void setMedicalAppointment(List<MedicalAppointment> medicalAppointments);
 
         void confirm(String message);
     }
 
     public interface Presenter {
-        public void getMedicalAppointment(String doctor);
+        void getMedicalAppointment(String doctor);
 
         void setContext(Context context);
 

@@ -3,8 +3,8 @@ package com.me.crudmedico.ui.patient.view;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -21,9 +21,9 @@ public class FirmActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_firm);
 
-        signaturePad = (SignaturePad)findViewById(R.id.signaturePad);
-        saveButton = (Button)findViewById(R.id.saveButton);
-        clearButton = (Button)findViewById(R.id.clearButton);
+        signaturePad = findViewById(R.id.signaturePad);
+        saveButton = findViewById(R.id.saveButton);
+        clearButton = findViewById(R.id.clearButton);
 
         //disable both buttons at start
         saveButton.setEnabled(false);

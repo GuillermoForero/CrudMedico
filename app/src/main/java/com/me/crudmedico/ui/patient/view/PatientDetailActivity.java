@@ -2,13 +2,11 @@ package com.me.crudmedico.ui.patient.view;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,7 +15,6 @@ import com.me.crudmedico.model.Doctor;
 import com.me.crudmedico.model.MedicalAppointment;
 import com.me.crudmedico.model.Patient;
 import com.me.crudmedico.ui.patient.contract.DetailPatientContract;
-import com.me.crudmedico.ui.patient.presenter.CreatePatientPresenter;
 import com.me.crudmedico.ui.patient.presenter.DetailPatientPresenter;
 
 import java.util.Calendar;
@@ -28,23 +25,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class PatientDetailActivity extends AppCompatActivity implements  DialogFragmentMedicalAppointment.createMedicalAppointment, DetailPatientContract.View {
+import static com.me.crudmedico.utils.Util.edittextNotEmpty;
+import static com.me.crudmedico.utils.Util.textviewNotEmpty;
 
+public class PatientDetailActivity extends AppCompatActivity implements DialogFragmentMedicalAppointment.createMedicalAppointment, DetailPatientContract.View {
 
-    @BindView(R.id.birthday_textview_detail)
-    TextView textViewBirthDay;
-    @BindView(R.id.name_edit_text)
-    EditText nameEditText;
-    @BindView(R.id.lastname_edit_text)
-    EditText lastnameEditText;
-    @BindView(R.id.id_edit_text)
-    EditText idEditText;
-    @BindView(R.id.checkBox_yes)
-    CheckBox checkBoxYes;
-    @BindView(R.id.checkBox_no)
-    CheckBox checkBoxNo;
-    @BindView(R.id.modering_fee_edit_text)
-    EditText moderingFeeEditText;
 
     private static final String CERO = "0";
     private static final String BARRA = "/";
@@ -56,13 +41,26 @@ public class PatientDetailActivity extends AppCompatActivity implements  DialogF
     final int anio = c.get(Calendar.YEAR);
     final int hora = c.get(Calendar.HOUR_OF_DAY);
     final int minuto = c.get(Calendar.MINUTE);
-
+    @BindView(R.id.birthday_textview_detail)
+    TextView textViewBirthDay;
+    @BindView(R.id.name_edit_text)
+    EditText nameEditText;
+    @BindView(R.id.lastname_edit_text)
+    EditText lastnameEditText;
+    @BindView(R.id.id_text_view)
+    TextView idTextView;
+    @BindView(R.id.checkBox_yes)
+    CheckBox checkBoxYes;
+    @BindView(R.id.checkBox_no)
+    CheckBox checkBoxNo;
+    @BindView(R.id.modering_fee_edit_text)
+    EditText moderingFeeEditText;
     Patient patient;
     Date birthday;
     Date newAppointment;
     DialogFragmentMedicalAppointment dialog;
-    private List<Doctor> doctors;
     DetailPatientContract.Presenter presenter;
+    private List<Doctor> doctors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,17 +72,16 @@ public class PatientDetailActivity extends AppCompatActivity implements  DialogF
         initView();
     }
 
-    public void initView(){
-        idEditText.setText(patient.getId());
+    public void initView() {
+        idTextView.setText(patient.getId());
         nameEditText.setText(patient.getName());
         lastnameEditText.setText(patient.getLastName());
         textViewBirthDay.setText(patient.getBirthdate().toString());
         moderingFeeEditText.setText(patient.getValue().toString());
         birthday = patient.getBirthdate();
-        if(patient.getTreatment()){
+        if (patient.getTreatment()) {
             checkBoxYes.setChecked(true);
-        }
-        else{
+        } else {
             checkBoxNo.setChecked(true);
         }
 
@@ -96,19 +93,21 @@ public class PatientDetailActivity extends AppCompatActivity implements  DialogF
 
 
     @OnClick(R.id.btn_sign_up)
-    public void createPatient(){
-        Patient patient = new Patient();
-        patient.setName(nameEditText.getText().toString());
-        patient.setLastName(lastnameEditText.getText().toString());
-        patient.setId(idEditText.getText().toString());
-        patient.setTreatment(checkBoxYes.isChecked());
-        patient.setBirthdate(birthday);
-        patient.setValue(Double.parseDouble(moderingFeeEditText.getText().toString()));
-        presenter.editPatient(patient);
+    public void createPatient() {
+        if (edittextNotEmpty(nameEditText) && edittextNotEmpty(lastnameEditText) && textviewNotEmpty(idTextView) && textviewNotEmpty(textViewBirthDay)) {
+            patient.setName(nameEditText.getText().toString());
+            patient.setLastName(lastnameEditText.getText().toString());
+            patient.setId(idTextView.getText().toString());
+            patient.setTreatment(checkBoxYes.isChecked());
+            patient.setBirthdate(birthday);
+            presenter.editPatient(patient);
+        } else {
+            confirm("Todos los campos deben estar llenos");
+        }
     }
 
     @OnClick(R.id.btn_launch_new_medical_appointment)
-    public void newMedicalAppointment(){
+    public void newMedicalAppointment() {
         dialog = new DialogFragmentMedicalAppointment();
         dialog.setCancelable(false);
         dialog.show(getSupportFragmentManager(), "lel");
@@ -117,43 +116,42 @@ public class PatientDetailActivity extends AppCompatActivity implements  DialogF
     }
 
     @OnClick(R.id.watch_medical_appointments)
-    public void watchMedicalAppointments(){
+    public void watchMedicalAppointments() {
         startActivity(new Intent(this, HistoryOfAppointmentsActivity.class).putExtra("patient", patient.getId()));
     }
 
     @OnClick(R.id.btn_delete)
-    public void deletePatient(){
+    public void deletePatient() {
         Patient patient = new Patient();
         patient.setName(nameEditText.getText().toString());
         patient.setLastName(lastnameEditText.getText().toString());
-        patient.setId(idEditText.getText().toString());
+        patient.setId(idTextView.getText().toString());
         patient.setTreatment(checkBoxYes.isChecked());
         patient.setBirthdate(birthday);
         patient.setValue(Double.parseDouble(moderingFeeEditText.getText().toString()));
         presenter.deletePatient(patient);
     }
 
-    private void getDate(final TextView textView, final int type){
+    private void getDate(final TextView textView, final int type) {
         DatePickerDialog recogerFecha = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 //Esta variable lo que realiza es aumentar en uno el mes ya que comienza desde 0 = enero
                 final int mesActual = month + 1;
                 //Formateo el día obtenido: antepone el 0 si son menores de 10
-                String diaFormateado = (dayOfMonth < 10)? CERO + String.valueOf(dayOfMonth):String.valueOf(dayOfMonth);
+                String diaFormateado = (dayOfMonth < 10) ? CERO + dayOfMonth : String.valueOf(dayOfMonth);
                 //Formateo el mes obtenido: antepone el 0 si son menores de 10
-                String mesFormateado = (mesActual < 10)? CERO + String.valueOf(mesActual):String.valueOf(mesActual);
+                String mesFormateado = (mesActual < 10) ? CERO + mesActual : String.valueOf(mesActual);
                 //Muestro la fecha con el formato deseado
                 textViewBirthDay.setText(diaFormateado + BARRA + mesFormateado + BARRA + year);
 
-                if(type == 0){
+                if (type == 0) {
                     Calendar cal = Calendar.getInstance();
                     cal.set(Calendar.YEAR, year);
                     cal.set(Calendar.MONTH, month);
                     cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                     birthday = cal.getTime();
-                }
-                else{
+                } else {
                     Calendar cal = Calendar.getInstance();
                     cal.setTime(newAppointment);
                     cal.set(Calendar.YEAR, year);
@@ -167,7 +165,7 @@ public class PatientDetailActivity extends AppCompatActivity implements  DialogF
             /**
              *También puede cargar los valores que usted desee
              */
-        },anio, mes, dia);
+        }, anio, mes, dia);
         //Muestro el widget
         recogerFecha.show();
 
@@ -193,7 +191,6 @@ public class PatientDetailActivity extends AppCompatActivity implements  DialogF
     public void setDoctors(List<Doctor> doctors) {
         this.doctors = doctors;
     }
-
 
 
 }

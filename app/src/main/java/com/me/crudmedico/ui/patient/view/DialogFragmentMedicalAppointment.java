@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -28,18 +27,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.me.crudmedico.utils.Util.textviewNotEmpty;
+
 public class DialogFragmentMedicalAppointment extends DialogFragment {
-    private Context context;
-
-    @BindView(R.id.date_of_new_appoinment)
-    TextView textViewDateNewAppoinment;
-    @BindView(R.id.time_of_new_appoinment)
-    TextView textViewTimeNewAppoinment;
-    @BindView(R.id.doctors_spinner)
-    Spinner spinnerDoctors;
-
-
-    List<Doctor> doctors;
     private static final String CERO = "0";
     private static final String BARRA = "/";
     private static final String DOS_PUNTOS = ":";
@@ -50,8 +40,17 @@ public class DialogFragmentMedicalAppointment extends DialogFragment {
     final int anio = c.get(Calendar.YEAR);
     final int hora = c.get(Calendar.HOUR_OF_DAY);
     final int minuto = c.get(Calendar.MINUTE);
+    @BindView(R.id.date_of_new_appoinment)
+    TextView textViewDateNewAppoinment;
+    @BindView(R.id.time_of_new_appoinment)
+    TextView textViewTimeNewAppoinment;
+    @BindView(R.id.doctors_spinner)
+    Spinner spinnerDoctors;
+    List<Doctor> doctors;
     Date newAppointment;
     createMedicalAppointment createMedicalAppointment;
+    private Context context;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.dialog_create_medical_appointment, container, false);
@@ -66,11 +65,12 @@ public class DialogFragmentMedicalAppointment extends DialogFragment {
     }
 
     @OnClick(R.id.date_of_new_appoinment)
-    public void dateOfNewAppoinment(){
+    public void dateOfNewAppoinment() {
         getDate();
     }
+
     @OnClick(R.id.time_of_new_appoinment)
-    public void timeOfNewAppoinment(){
+    public void timeOfNewAppoinment() {
         getTime();
     }
 
@@ -78,25 +78,25 @@ public class DialogFragmentMedicalAppointment extends DialogFragment {
         this.context = context;
     }
 
-    private void getDate(){
+    private void getDate() {
         DatePickerDialog recogerFecha = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 //Esta variable lo que realiza es aumentar en uno el mes ya que comienza desde 0 = enero
                 final int mesActual = month + 1;
                 //Formateo el día obtenido: antepone el 0 si son menores de 10
-                String diaFormateado = (dayOfMonth < 10)? CERO + String.valueOf(dayOfMonth):String.valueOf(dayOfMonth);
+                String diaFormateado = (dayOfMonth < 10) ? CERO + dayOfMonth : String.valueOf(dayOfMonth);
                 //Formateo el mes obtenido: antepone el 0 si son menores de 10
-                String mesFormateado = (mesActual < 10)? CERO + String.valueOf(mesActual):String.valueOf(mesActual);
+                String mesFormateado = (mesActual < 10) ? CERO + mesActual : String.valueOf(mesActual);
                 //Muestro la fecha con el formato deseado
                 textViewDateNewAppoinment.setText(diaFormateado + BARRA + mesFormateado + BARRA + year);
 
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTime(newAppointment);
-                    cal.set(Calendar.YEAR, year);
-                    cal.set(Calendar.MONTH, month);
-                    cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                    newAppointment = cal.getTime();
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(newAppointment);
+                cal.set(Calendar.YEAR, year);
+                cal.set(Calendar.MONTH, month);
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                newAppointment = cal.getTime();
 
 
             }
@@ -104,17 +104,18 @@ public class DialogFragmentMedicalAppointment extends DialogFragment {
             /**
              *También puede cargar los valores que usted desee
              */
-        },anio, mes, dia);
+        }, anio, mes, dia);
         //Muestro el widget
         recogerFecha.show();
 
     }
-    public void setDoctors(List<Doctor> doctors){
+
+    public void setDoctors(List<Doctor> doctors) {
         List<String> stringsDoctors = new ArrayList<>();
-        for(Doctor doctor: doctors){
+        for (Doctor doctor : doctors) {
             stringsDoctors.add(doctor.getCode());
         }
-        System.out.println("context: "+ context);
+        System.out.println("context: " + context);
         this.doctors = doctors;
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context,
                 android.R.layout.simple_spinner_item, stringsDoctors);
@@ -122,17 +123,17 @@ public class DialogFragmentMedicalAppointment extends DialogFragment {
         spinnerDoctors.setAdapter(dataAdapter);
     }
 
-    private void getTime(){
+    private void getTime() {
         TimePickerDialog recogerHora = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 //Formateo el hora obtenido: antepone el 0 si son menores de 10
-                String horaFormateada =  (hourOfDay < 10)? String.valueOf(CERO + hourOfDay) : String.valueOf(hourOfDay);
+                String horaFormateada = (hourOfDay < 10) ? CERO + hourOfDay : String.valueOf(hourOfDay);
                 //Formateo el minuto obtenido: antepone el 0 si son menores de 10
-                String minutoFormateado = (minute < 10)? String.valueOf(CERO + minute):String.valueOf(minute);
+                String minutoFormateado = (minute < 10) ? CERO + minute : String.valueOf(minute);
                 //Obtengo el valor a.m. o p.m., dependiendo de la selección del usuario
                 String AM_PM;
-                if(hourOfDay < 12) {
+                if (hourOfDay < 12) {
                     AM_PM = "a.m.";
                 } else {
                     AM_PM = "p.m.";
@@ -155,18 +156,24 @@ public class DialogFragmentMedicalAppointment extends DialogFragment {
     }
 
     @OnClick(R.id.btn_new_medical_appointment)
-    public void createMedicalAppointment(){
+    public void createMedicalAppointment() {
         MedicalAppointment medicalAppointment = new MedicalAppointment();
-        medicalAppointment.setDate(newAppointment);
-        medicalAppointment.setDoctorCode(doctors.get(spinnerDoctors.getSelectedItemPosition()).getCode());
-        createMedicalAppointment.createMedicalAppointment(medicalAppointment);
+        if (textviewNotEmpty(textViewDateNewAppoinment) && textviewNotEmpty(textViewTimeNewAppoinment)) {
+            medicalAppointment.setDate(newAppointment);
+            medicalAppointment.setDoctorCode(doctors.get(spinnerDoctors.getSelectedItemPosition()).getCode());
+            createMedicalAppointment.createMedicalAppointment(medicalAppointment);
+        } else {
+            createMedicalAppointment.confirm("Todos los campos deben estar llenos");
+        }
         getDialog().dismiss();
     }
 
-    public interface createMedicalAppointment{
-        public void createMedicalAppointment(MedicalAppointment medicalAppointment);
+    public interface createMedicalAppointment {
+        void createMedicalAppointment(MedicalAppointment medicalAppointment);
 
-        public void isReady();
+        void isReady();
+
+        void confirm(String message);
     }
 
 }

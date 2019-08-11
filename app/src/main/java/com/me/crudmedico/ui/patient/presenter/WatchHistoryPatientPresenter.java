@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.me.crudmedico.data.DataBase;
 import com.me.crudmedico.model.MedicalAppointment;
-
 import com.me.crudmedico.ui.patient.contract.WatchHistoryPatientContract;
 
 import java.lang.ref.WeakReference;
@@ -21,10 +20,10 @@ public class WatchHistoryPatientPresenter implements WatchHistoryPatientContract
 
     @Override
     public void getMedicalAppointment(String patient) {
-        System.out.println("id de busqueda: "+ patient);
+        System.out.println("id de busqueda: " + patient);
         DataBase dataBase = new DataBase(context, "databaseMedicalCrud", null, 1);
         SQLiteDatabase sqLiteDatabase = dataBase.getWritableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from appointment where idPatient='"+patient+"'", null);
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from appointment where idPatient='" + patient + "'", null);
         List<MedicalAppointment> medicalAppointments = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
@@ -35,14 +34,13 @@ public class WatchHistoryPatientPresenter implements WatchHistoryPatientContract
                 medicalAppointment.setAttended(Boolean.valueOf(cursor.getString(3)));
                 medicalAppointment.setImageFirmSVG(cursor.getString(4));
                 medicalAppointments.add(medicalAppointment);
-                if(cursor.getString(3).equals("1")){
+                if (cursor.getString(3).equals("1")) {
                     medicalAppointment.setAttended(true);
-                }
-                else{
+                } else {
                     medicalAppointment.setAttended(false);
                 }
                 System.out.println((cursor.getString(3)));
-            } while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         view.get().setMedicalAppointment(medicalAppointments);
     }
@@ -61,7 +59,7 @@ public class WatchHistoryPatientPresenter implements WatchHistoryPatientContract
     @Override
     public void setAttended(MedicalAppointment medicalAppointment) {
         DataBase dataBase = new DataBase(context, "databaseMedicalCrud", null, 1);
-        System.out.println("codeDoctor: "+medicalAppointment.getDoctorCode());
+        System.out.println("codeDoctor: " + medicalAppointment.getDoctorCode());
         SQLiteDatabase sqLiteDatabase = dataBase.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("codeDoctor", medicalAppointment.getDoctorCode());
@@ -69,8 +67,8 @@ public class WatchHistoryPatientPresenter implements WatchHistoryPatientContract
         contentValues.put("newMedical", medicalAppointment.getDate().getTime());
         contentValues.put("attended", true);
         contentValues.put("imagefirmsvg", medicalAppointment.getImageFirmSVG());
-        int i =sqLiteDatabase.update("appointment", contentValues, "codeDoctor="+"'"+medicalAppointment.getDoctorCode()+"' AND idPatient='"+medicalAppointment.getPatientId()+"' AND newMedical="+medicalAppointment.getDate().getTime(), null);
+        int i = sqLiteDatabase.update("appointment", contentValues, "codeDoctor=" + "'" + medicalAppointment.getDoctorCode() + "' AND idPatient='" + medicalAppointment.getPatientId() + "' AND newMedical=" + medicalAppointment.getDate().getTime(), null);
         sqLiteDatabase.close();
-        System.out.println("cantidad: "+ i);
+        System.out.println("cantidad: " + i);
     }
 }

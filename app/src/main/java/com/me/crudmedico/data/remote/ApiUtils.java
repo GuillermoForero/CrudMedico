@@ -2,9 +2,10 @@ package com.me.crudmedico.data.remote;
 
 public class ApiUtils {
 
-    private ApiUtils() {}
-
     public static final String BASE_URL = "http://jsonplaceholder.typicode.com/";
+
+    private ApiUtils() {
+    }
 
     public static APIService getAPIService() {
 

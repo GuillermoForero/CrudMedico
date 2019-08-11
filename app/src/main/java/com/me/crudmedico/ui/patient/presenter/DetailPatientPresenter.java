@@ -34,7 +34,7 @@ public class DetailPatientPresenter implements DetailPatientContract.Presenter {
     public void deletePatient(Patient patient) {
         DataBase dataBase = new DataBase(context, "databaseMedicalCrud", null, 1);
         SQLiteDatabase sqLiteDatabase = dataBase.getWritableDatabase();
-        sqLiteDatabase.delete("patient", "id=" + "'"+patient.getId()+"'", null);
+        sqLiteDatabase.delete("patient", "id=" + "'" + patient.getId() + "'", null);
         sqLiteDatabase.close();
         view.get().confirm("El paciente fue borrado");
     }
@@ -50,14 +50,14 @@ public class DetailPatientPresenter implements DetailPatientContract.Presenter {
         contentValues.put("birthday", patient.getBirthdate().getTime());
         contentValues.put("treatment", patient.getTreatment());
         contentValues.put("value", patient.getValue());
-        sqLiteDatabase.update("patient", contentValues, "id="+"'"+patient.getId()+"'", null);
+        sqLiteDatabase.update("patient", contentValues, "id=" + "'" + patient.getId() + "'", null);
         sqLiteDatabase.close();
     }
 
     @Override
     public void createMedicalAppointment(MedicalAppointment medicalAppointment) {
         DataBase dataBase = new DataBase(context, "databaseMedicalCrud", null, 1);
-        System.out.println("fue creada: id: "+ medicalAppointment.getPatientId());
+        System.out.println("fue creada: id: " + medicalAppointment.getPatientId());
         SQLiteDatabase sqLiteDatabase = dataBase.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("codeDoctor", medicalAppointment.getDoctorCode());
@@ -85,7 +85,7 @@ public class DetailPatientPresenter implements DetailPatientContract.Presenter {
                 doctor.setConsultingRoom(cursor.getString(3));
                 doctor.setHome(Boolean.valueOf(cursor.getString(4)));
                 doctors.add(doctor);
-            } while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         sqLiteDatabase.close();
         view.get().setDoctors(doctors);

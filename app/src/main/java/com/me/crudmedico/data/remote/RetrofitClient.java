@@ -11,7 +11,7 @@ public class RetrofitClient {
 
 
     public static Retrofit getClient(String baseUrl) {
-        if (retrofit==null) {
+        if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())

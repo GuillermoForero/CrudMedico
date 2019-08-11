@@ -8,7 +8,7 @@ import java.util.List;
 
 public class MainPatientContract {
     public interface View {
-        public void setPatients(List<Patient> patients);
+        void setPatients(List<Patient> patients);
 
         void confirm(String message);
     }
@@ -17,7 +17,7 @@ public class MainPatientContract {
 
         void setContext(Context context);
 
-        public void getPatients();
+        void getPatients();
 
         void setView(MainPatientContract.View view);
     }

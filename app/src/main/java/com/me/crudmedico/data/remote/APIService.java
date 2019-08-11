@@ -14,8 +14,8 @@ public interface APIService {
     @POST("/posts")
     @FormUrlEncoded
     Observable<MedicalAppointment> savePost(@Field("doctorCode") String doctorCode,
-                                      @Field("patientId") String patientId,
-                                      @Field("date") Date date,
-                                      @Field("attended") boolean attended,
-                                      @Field("imageFirmSVG") String imageFirmSVG);
+                                            @Field("patientId") String patientId,
+                                            @Field("date") Date date,
+                                            @Field("attended") boolean attended,
+                                            @Field("imageFirmSVG") String imageFirmSVG);
 }

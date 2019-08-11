@@ -1,26 +1,21 @@
 package com.me.crudmedico.ui;
 
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import com.me.crudmedico.R;
-import com.me.crudmedico.data.remote.APIService;
-import com.me.crudmedico.data.remote.ApiUtils;
-import com.me.crudmedico.model.MedicalAppointment;
-import com.me.crudmedico.model.MyTimerTask;
+import com.me.crudmedico.data.remote.Client;
 import com.me.crudmedico.ui.doctor.view.DoctorActivity;
 import com.me.crudmedico.ui.patient.view.PatientActivity;
 
-import java.util.Date;
+import java.util.Timer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,52 +24,45 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.button2)
     Button doctorsButton;
 
-    private APIService mAPIService;
-    MyTimerTask myTimerTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        mAPIService = ApiUtils.getAPIService();
-        myTimerTask = new MyTimerTask();
-        myTimerTask.run();
+        TimerSyncTask task = new TimerSyncTask(this);
+        Timer timer = new Timer();
+        timer.schedule(task, 1000, 10000);
     }
 
     @OnClick(R.id.button2)
-    public void goToDoctors(){
+    public void goToDoctors() {
         startActivity(new Intent(this, DoctorActivity.class));
     }
 
     @OnClick(R.id.button)
-    public void goToPatients(){
+    public void goToPatients() {
         startActivity(new Intent(this, PatientActivity.class));
     }
 
     public void showResponse(String response) {
 
     }
-    public void sendPost() {
-        // RxJava
-        mAPIService.savePost("xd", "xd", new Date(), true, "xd").subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<MedicalAppointment>() {
-                    @Override
-                    public void onCompleted() {
 
-                    }
+    class TimerSyncTask extends java.util.TimerTask {
 
-                    @Override
-                    public void onError(Throwable e) {
+        Client task;
+        Context context;
 
-                    }
+        public TimerSyncTask(Context context) {
+            this.context = context;
+        }
 
-                    @Override
-                    public void onNext(MedicalAppointment post) {
-                        showResponse(post.toString());
-                    }
-                });
+        @Override
+        public void run() {
+            task = new Client(context);
+            task.execute();
+        }
     }
-
 
 }

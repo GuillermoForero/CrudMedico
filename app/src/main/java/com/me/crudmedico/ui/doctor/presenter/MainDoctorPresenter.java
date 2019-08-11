@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.me.crudmedico.data.DataBase;
 import com.me.crudmedico.model.Doctor;
-import com.me.crudmedico.ui.doctor.contract.CreateDoctorContract;
 import com.me.crudmedico.ui.doctor.contract.MainDoctorContract;
 
 import java.lang.ref.WeakReference;
@@ -34,7 +33,7 @@ public class MainDoctorPresenter implements MainDoctorContract.Presenter {
                 doctor.setConsultingRoom(cursor.getString(3));
                 doctor.setHome(Boolean.valueOf(cursor.getString(4)));
                 doctors.add(doctor);
-            } while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         sqLiteDatabase.close();
         view.get().setDoctor(doctors);

@@ -21,7 +21,7 @@ public class WatchHistoryDoctorPresenter implements WatchHistoryDoctorContract.P
     public void getMedicalAppointment(String doctor) {
         DataBase dataBase = new DataBase(context, "databaseMedicalCrud", null, 1);
         SQLiteDatabase sqLiteDatabase = dataBase.getWritableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from appointment where codeDoctor='"+doctor+"'", null);
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from appointment where codeDoctor='" + doctor + "'", null);
         List<MedicalAppointment> medicalAppointments = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
@@ -31,7 +31,7 @@ public class WatchHistoryDoctorPresenter implements WatchHistoryDoctorContract.P
                 medicalAppointment.setDate(new Date(cursor.getLong(2)));
                 medicalAppointment.setAttended(Boolean.valueOf(cursor.getString(3)));
                 medicalAppointments.add(medicalAppointment);
-            } while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         view.get().setMedicalAppointment(medicalAppointments);
     }

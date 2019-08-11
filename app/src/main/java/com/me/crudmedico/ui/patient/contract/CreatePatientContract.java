@@ -16,6 +16,6 @@ public class CreatePatientContract {
 
         void setContext(Context context);
 
-        public void createPatient(Patient patient);
+        void createPatient(Patient patient);
     }
 }

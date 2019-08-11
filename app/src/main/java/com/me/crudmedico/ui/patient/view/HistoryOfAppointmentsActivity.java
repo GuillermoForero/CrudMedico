@@ -1,9 +1,9 @@
 package com.me.crudmedico.ui.patient.view;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
@@ -12,7 +12,6 @@ import com.me.crudmedico.R;
 import com.me.crudmedico.model.MedicalAppointment;
 import com.me.crudmedico.model.adapters.AdapterHistory;
 import com.me.crudmedico.ui.patient.contract.WatchHistoryPatientContract;
-import com.me.crudmedico.ui.patient.presenter.MainPatientPresenter;
 import com.me.crudmedico.ui.patient.presenter.WatchHistoryPatientPresenter;
 
 import java.util.List;
@@ -24,10 +23,10 @@ public class HistoryOfAppointmentsActivity extends AppCompatActivity implements 
 
     @BindView(R.id.recyclerView_history_patient)
     RecyclerView recyclerViewPatient;
-    private AdapterHistory adapterHistory;
     WatchHistoryPatientContract.Presenter presenter;
     String idPatient;
     MedicalAppointment medicalAppointment;
+    private AdapterHistory adapterHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +43,7 @@ public class HistoryOfAppointmentsActivity extends AppCompatActivity implements 
         presenter.getMedicalAppointment(idPatient);
     }
 
-    private void initView(){
+    private void initView() {
         presenter = new WatchHistoryPatientPresenter();
         presenter.setView(this);
         presenter.setContext(this);
@@ -62,7 +61,7 @@ public class HistoryOfAppointmentsActivity extends AppCompatActivity implements 
         adapterHistory.setLaunchFirmActivity(this);
     }
 
-    public void changeState(String imageSVG){
+    public void changeState(String imageSVG) {
         medicalAppointment.setImageFirmSVG(imageSVG);
         presenter.setAttended(medicalAppointment);
     }
@@ -74,9 +73,10 @@ public class HistoryOfAppointmentsActivity extends AppCompatActivity implements 
 
     @Override
     public void launchFirmActivity(MedicalAppointment medicalAppointment) {
-        startActivityForResult(new Intent(this, FirmActivity.class),666);
+        startActivityForResult(new Intent(this, FirmActivity.class), 666);
         this.medicalAppointment = medicalAppointment;
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
